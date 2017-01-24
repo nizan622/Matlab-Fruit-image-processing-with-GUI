@@ -1,2 +1,1 @@
-# Shai-LoMaaminLeha
-First Project
+# Analyzing fruits using image processing with matlab
