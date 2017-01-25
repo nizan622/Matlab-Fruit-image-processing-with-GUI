@@ -2,32 +2,32 @@ function [Fruit, FruitFail, Pixel] = Fruit(img,ImageNum)
     switch ImageNum
         case 1
             redThresholdLow = 20;
-            redThresholdHigh = 100;
-            greenThresholdLow = 0;
-            greenThresholdHigh = 255;
+            redThresholdHigh = 90;
+            greenThresholdLow = 45;
+            greenThresholdHigh = 100;
             blueThresholdLow = 0;
-            blueThresholdHigh = 90;
+            blueThresholdHigh = 55;
         case 2
-            redThresholdLow = 150;
+            redThresholdLow = 135;
             redThresholdHigh = 255;
-            greenThresholdLow = 0;
-            greenThresholdHigh = 255;
+            greenThresholdLow = 100;
+            greenThresholdHigh = 240;
             blueThresholdLow = 0;
-            blueThresholdHigh = 110;
+            blueThresholdHigh = 150;
         case 3
-            redThresholdLow = 80;
+            redThresholdLow = 110;
             redThresholdHigh = 255;
-            greenThresholdLow = 0;
-            greenThresholdHigh = 200;
+            greenThresholdLow = 10;
+            greenThresholdHigh = 215;
             blueThresholdLow = 0;
-            blueThresholdHigh = 90;
+            blueThresholdHigh = 115;
         case 4
             redThresholdLow = 100;
-            redThresholdHigh = 255;
-            greenThresholdLow = 0;
-            greenThresholdHigh = 255;
+            redThresholdHigh = 235;
+            greenThresholdLow = 115;
+            greenThresholdHigh = 235;
             blueThresholdLow = 0;
-            blueThresholdHigh = 100;
+            blueThresholdHigh = 115;
     end
     % Read the image.
     [rgbImage, storedColorMap] = imread(img);

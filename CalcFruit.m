@@ -6,19 +6,19 @@ function [sum, percent] = CalcFruit(imgPixel, MaskPixel, ImageNum)
         percent = (MaskPixel * 100)/imgPixel;
         switch ImageNum
             case 1
-                if(percent >= 85)
+                if(percent >= 75)
                     sum = true;
                 else
                     sum = false;
                 end
             case 2
-                if(percent >= 85)
+                if(percent >= 90)
                     sum = true;
                 else
                     sum = false;
                 end
             case 3
-                if(percent >= 75)
+                if(percent >= 85)
                     sum = true;
                 else
                     sum = false;

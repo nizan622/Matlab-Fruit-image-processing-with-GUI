@@ -20,17 +20,14 @@ function CheckDiameter = Diameter(img)
         if (startcol ~= -1)
             break;
         end
-    end
-    for i = row:rows        
-        for j = startcol:cols
-            if bw(i,j) == 1
-                finishcol = j;
-                break;
-            end
-        end
-        if (finishcol ~= -1)
+    end       
+    for j = startcol:cols
+        if bw(row,j) == 1
+            finishcol = j;
             break;
+        elseif j == cols
+            finishcol = cols; 
         end
-    end
+    end  
     CheckDiameter = (finishcol-startcol)*lambda;
 end

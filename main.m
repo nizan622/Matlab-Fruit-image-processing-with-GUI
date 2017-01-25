@@ -238,7 +238,7 @@ function togglebutton1_Callback(hObject, eventdata, handles)
     delete(findall(findall(gcf,'Type','axe'),'Type','text'))
     ImageNum = 1;
     %img = uigetfile({'*.jpg';'*.png'},'File Selector');
-    [FileName, PathName] = uigetfile({'*.jpg';'*.png'},'File Selector');
+    [FileName, PathName] = uigetfile({'*.jpg'},'File Selector');
     img = fullfile(PathName, FileName);
     if (img ~=0)
         [ImToDisp,ImToDisp2, MaskPixel] = Fruit(img,ImageNum);
@@ -322,7 +322,7 @@ function togglebutton2_Callback(hObject, eventdata, handles)
     axes(handles.axes2);
     delete(findall(findall(gcf,'Type','axe'),'Type','text'))
     %img = uigetfile('*.jpg','File Selector');
-    [FileName, PathName] = uigetfile({'*.jpg';'*.png'},'File Selector');
+    [FileName, PathName] = uigetfile({'*.jpg'},'File Selector');
     img = fullfile(PathName, FileName);
     if (img ~=0)
         ImageNum = 2;
@@ -409,7 +409,7 @@ function togglebutton3_Callback(hObject, eventdata, handles)
     axes(handles.axes2);
     delete(findall(findall(gcf,'Type','axe'),'Type','text'))
     %img = uigetfile('*.jpg','File Selector');
-    [FileName, PathName] = uigetfile({'*.jpg';'*.png'},'File Selector');
+    [FileName, PathName] = uigetfile({'*.jpg'},'File Selector');
     img = fullfile(PathName, FileName);
     if (img ~=0)
         ImageNum = 3;
@@ -496,7 +496,7 @@ function togglebutton4_Callback(hObject, eventdata, handles)
     axes(handles.axes1);
     axes(handles.axes2);
     delete(findall(findall(gcf,'Type','axe'),'Type','text'))
-    [FileName, PathName] = uigetfile({'*.jpg';'*.png'},'File Selector');
+    [FileName, PathName] = uigetfile({'*.jpg'},'File Selector');
     img = fullfile(PathName, FileName);
     if (img ~=0)
         ImageNum = 4;
