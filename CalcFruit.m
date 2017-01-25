@@ -1,32 +1,34 @@
-function sum = CalcFruit(imgPixel, MaskPixel, ImageNum)
-if ((imgPixel==0)||(MaskPixel==0)||(MaskPixel>imgPixel))
-    sum = false;
-else
-    Temp = (MaskPixel * 100)/imgPixel;
+function [sum, percent] = CalcFruit(imgPixel, MaskPixel, ImageNum)
+    if ((imgPixel==0)||(MaskPixel==0)||(MaskPixel>imgPixel))
+        sum = false;
+    else
+        percent = (MaskPixel * 100)/imgPixel;
         switch ImageNum
+            case 1
+                if(percent >= 85)
+                    sum = true;
+                else
+                    sum = false;
+                end
             case 2
-                if(Temp >= 85)
+                if(percent >= 85)
                     sum = true;
                 else
                     sum = false;
                 end
             case 3
-                if(Temp >= 85)
+                if(percent >= 75)
                     sum = true;
                 else
                     sum = false;
                 end
             case 4
-                if(Temp >= 75)
-                    sum = true;
-                else
-                    sum = false;
-                end
-            case 5
-                if(Temp >= 85)
+                if(percent >= 85)
                     sum = true;
                 else
                     sum = false;
                 end
         end
+    end
 end
+

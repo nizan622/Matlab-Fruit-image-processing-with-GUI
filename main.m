@@ -1,4 +1,3 @@
-
 function varargout = main(varargin)
 % main MATLAB code for main.fig
 %      main, by itself, creates a new main or raises the existing
@@ -23,7 +22,7 @@ function varargout = main(varargin)
 
 % Edit the above text to modify the response to help main
 
-% Last Modified by GUIDE v2.5 23-Jan-2017 03:33:29
+% Last Modified by GUIDE v2.5 25-Jan-2017 03:05:35
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -110,6 +109,10 @@ function check_Callback(hObject, eventdata, handles)
         set(handles.text5,'Visible','off')
         set(handles.text6,'Visible','off')
         set(handles.text7,'Visible','off')
+        set(handles.text8, 'Visible','off');
+        set(handles.text9, 'Visible','off');
+        set(handles.text10, 'Visible','off');
+        set(handles.text11, 'Visible','off');
         set(get(handles.axes1,'children'),'Visible','off')
         set(get(handles.axes2,'children'),'Visible','off')
    elseif val == 2
@@ -123,6 +126,10 @@ function check_Callback(hObject, eventdata, handles)
         set(handles.text5,'Visible','off')
         set(handles.text6,'Visible','off')
         set(handles.text7,'Visible','off')
+        set(handles.text8, 'Visible','off');
+        set(handles.text9, 'Visible','off');
+        set(handles.text10, 'Visible','off');
+        set(handles.text11, 'Visible','off');
         set(get(handles.axes1,'children'),'Visible','off')
         set(get(handles.axes2,'children'),'Visible','off')
    elseif val == 3
@@ -136,6 +143,10 @@ function check_Callback(hObject, eventdata, handles)
         set(handles.text5,'Visible','off')
         set(handles.text6,'Visible','off')
         set(handles.text7,'Visible','off')
+        set(handles.text8, 'Visible','off');
+        set(handles.text9, 'Visible','off');
+        set(handles.text10, 'Visible','off');
+        set(handles.text11, 'Visible','off');
         set(get(handles.axes1,'children'),'Visible','off')
         set(get(handles.axes2,'children'),'Visible','off')
    elseif val == 4
@@ -149,6 +160,10 @@ function check_Callback(hObject, eventdata, handles)
         set(handles.text5,'Visible','off')
         set(handles.text6,'Visible','off')
         set(handles.text7,'Visible','off')
+        set(handles.text8, 'Visible','off');
+        set(handles.text9, 'Visible','off');
+        set(handles.text10, 'Visible','off');
+        set(handles.text11, 'Visible','off');
         set(get(handles.axes1,'children'),'Visible','off')
         set(get(handles.axes2,'children'),'Visible','off')
    elseif val == 5
@@ -162,6 +177,10 @@ function check_Callback(hObject, eventdata, handles)
         set(handles.text5,'Visible','off')
         set(handles.text6,'Visible','off')
         set(handles.text7,'Visible','off')
+        set(handles.text8, 'Visible','off');
+        set(handles.text9, 'Visible','off');
+        set(handles.text10, 'Visible','off');
+        set(handles.text11, 'Visible','off');
         set(get(handles.axes1,'children'),'Visible','off')
         set(get(handles.axes2,'children'),'Visible','off')
    end
@@ -205,19 +224,23 @@ function togglebutton1_Callback(hObject, eventdata, handles)
     set(handles.text5,'Visible','off')
     set(handles.text6,'Visible','off')
     set(handles.text7,'Visible','off')
+    set(handles.text8, 'Visible','off');
+    set(handles.text9, 'Visible','off');
+    set(handles.text10, 'Visible','off');
+    set(handles.text11, 'Visible','off');
     set(get(handles.axes1,'children'),'visible','off')
     set(get(handles.axes2,'children'),'visible','off')
     axes(handles.axes1);
     axes(handles.axes2);
     delete(findall(findall(gcf,'Type','axe'),'Type','text'))
-    ImageNum = 2;
+    ImageNum = 1;
     %img = uigetfile({'*.jpg';'*.png'},'File Selector');
     [FileName, PathName] = uigetfile({'*.jpg';'*.png'},'File Selector');
     img = fullfile(PathName, FileName);
     if (img ~=0)
         [ImToDisp,ImToDisp2, MaskPixel] = Fruit(img,ImageNum);
         ImagePixel = SizeInPixels(img);
-        flag = CalcFruit(ImagePixel, MaskPixel, ImageNum);
+        [flag,percent] = CalcFruit(ImagePixel, MaskPixel, ImageNum);
         CheckDiam = Diameter(img);
         if (CheckDiam >= 0.5)
             DiamFlag = true;
@@ -226,21 +249,45 @@ function togglebutton1_Callback(hObject, eventdata, handles)
         end
         if (flag == true && DiamFlag == true)
             set(handles.text3,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
         elseif (flag == true && DiamFlag == false)
             set(handles.text4,'Visible','on')
             set(handles.text5,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');
         elseif (flag == false && DiamFlag == true)
             set(handles.text4,'Visible','on')
             set(handles.text6,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');
         else
             set(handles.text4,'Visible','on')
             set(handles.text7,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');
@@ -262,6 +309,10 @@ function togglebutton2_Callback(hObject, eventdata, handles)
     set(handles.text5,'Visible','off')
     set(handles.text6,'Visible','off')
     set(handles.text7,'Visible','off')
+    set(handles.text8, 'Visible','off');
+    set(handles.text9, 'Visible','off');
+    set(handles.text10, 'Visible','off');
+    set(handles.text11, 'Visible','off');
     set(get(handles.axes1,'children'),'visible','off')
     set(get(handles.axes2,'children'),'visible','off')
     axes(handles.axes1);
@@ -271,10 +322,10 @@ function togglebutton2_Callback(hObject, eventdata, handles)
     [FileName, PathName] = uigetfile({'*.jpg';'*.png'},'File Selector');
     img = fullfile(PathName, FileName);
     if (img ~=0)
-        ImageNum = 3;
+        ImageNum = 2;
         [ImToDisp,ImToDisp2, MaskPixel] = Fruit(img,ImageNum);
         ImagePixel = SizeInPixels(img);
-        flag = CalcFruit(ImagePixel, MaskPixel, ImageNum);
+        [flag,percent] = CalcFruit(ImagePixel, MaskPixel, ImageNum);
         CheckDiam = Diameter(img);
         if (CheckDiam >= 0.5)
             DiamFlag = true;
@@ -283,21 +334,45 @@ function togglebutton2_Callback(hObject, eventdata, handles)
         end
         if (flag == true && DiamFlag == true)
             set(handles.text3,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
         elseif (flag == true && DiamFlag == false)
             set(handles.text4,'Visible','on')
             set(handles.text5,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');
         elseif (flag == false && DiamFlag == true)
             set(handles.text4,'Visible','on')
             set(handles.text6,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');
         else
             set(handles.text4,'Visible','on')
             set(handles.text7,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');
@@ -321,19 +396,23 @@ function togglebutton3_Callback(hObject, eventdata, handles)
     set(handles.text5,'Visible','off')
     set(handles.text6,'Visible','off')
     set(handles.text7,'Visible','off')
+    set(handles.text8, 'Visible','off');
+    set(handles.text9, 'Visible','off');
+    set(handles.text10, 'Visible','off');
+    set(handles.text11, 'Visible','off');
     set(get(handles.axes1,'children'),'visible','off')
     set(get(handles.axes2,'children'),'visible','off')
     axes(handles.axes1);
     axes(handles.axes2);
     delete(findall(findall(gcf,'Type','axe'),'Type','text'))
-    ImageNum = 4;
     %img = uigetfile('*.jpg','File Selector');
     [FileName, PathName] = uigetfile({'*.jpg';'*.png'},'File Selector');
     img = fullfile(PathName, FileName);
     if (img ~=0)
+        ImageNum = 3;
         [ImToDisp,ImToDisp2, MaskPixel] = Fruit(img,ImageNum);
         ImagePixel = SizeInPixels(img);
-        flag = CalcFruit(ImagePixel, MaskPixel, ImageNum);
+        [flag,percent] = CalcFruit(ImagePixel, MaskPixel, ImageNum);
         CheckDiam = Diameter(img);
         if (CheckDiam >= 0.5)
             DiamFlag = true;
@@ -342,21 +421,45 @@ function togglebutton3_Callback(hObject, eventdata, handles)
         end
         if (flag == true && DiamFlag == true)
             set(handles.text3,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
         elseif (flag == true && DiamFlag == false)
             set(handles.text4,'Visible','on')
             set(handles.text5,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');
         elseif (flag == false && DiamFlag == true)
             set(handles.text4,'Visible','on')
             set(handles.text6,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');
         else
             set(handles.text4,'Visible','on')
             set(handles.text7,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');
@@ -381,19 +484,22 @@ function togglebutton4_Callback(hObject, eventdata, handles)
     set(handles.text5,'Visible','off')
     set(handles.text6,'Visible','off')
     set(handles.text7,'Visible','off')
+    set(handles.text8, 'Visible','off');
+    set(handles.text9, 'Visible','off');
+    set(handles.text10, 'Visible','off');
+    set(handles.text11, 'Visible','off');
     set(get(handles.axes1,'children'),'visible','off')
     set(get(handles.axes2,'children'),'visible','off')
     axes(handles.axes1);
     axes(handles.axes2);
     delete(findall(findall(gcf,'Type','axe'),'Type','text'))
-    ImageNum = 5;
-    %img = uigetfile('*.jpg','File Selector');
     [FileName, PathName] = uigetfile({'*.jpg';'*.png'},'File Selector');
     img = fullfile(PathName, FileName);
     if (img ~=0)
+        ImageNum = 4;
         [ImToDisp,ImToDisp2, MaskPixel] = Fruit(img,ImageNum);
         ImagePixel = SizeInPixels(img);
-        flag = CalcFruit(ImagePixel, MaskPixel, ImageNum);
+        [flag,percent] = CalcFruit(ImagePixel, MaskPixel, ImageNum);
         CheckDiam = Diameter(img);
         if (CheckDiam >= 0.5)
             DiamFlag = true;
@@ -402,21 +508,45 @@ function togglebutton4_Callback(hObject, eventdata, handles)
         end
         if (flag == true && DiamFlag == true)
             set(handles.text3,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
         elseif (flag == true && DiamFlag == false)
             set(handles.text4,'Visible','on')
             set(handles.text5,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');
         elseif (flag == false && DiamFlag == true)
             set(handles.text4,'Visible','on')
             set(handles.text6,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');
         else
             set(handles.text4,'Visible','on')
             set(handles.text7,'Visible','on')
+            set(handles.text8, 'Visible','on');
+            set(handles.text9, 'String', sprintf('%f', CheckDiam));
+            set(handles.text9, 'Visible','on');
+            set(handles.text10, 'Visible','on');
+            set(handles.text11, 'String', sprintf('%.2f%%', percent));
+            set(handles.text11, 'Visible','on');
             axes(handles.axes2);
             imshow(ImToDisp2);
             title('Masked Image');

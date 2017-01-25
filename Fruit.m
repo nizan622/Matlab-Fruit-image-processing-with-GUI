@@ -1,49 +1,77 @@
 function [Fruit, FruitFail, Pixel] = Fruit(img,ImageNum)
 switch ImageNum
+    case 1
+        redThresholdLow = 20;
+		redThresholdHigh = 100;
+		greenThresholdLow = 0;
+		greenThresholdHigh = 255;
+		blueThresholdLow = 0;
+		blueThresholdHigh = 90;
     case 2
-        redthreshold = 10;
-        greenThreshold = 255;
-        blueThreshold = 90;
+        redThresholdLow = 150;
+		redThresholdHigh = 255;
+		greenThresholdLow = 0;
+		greenThresholdHigh = 255;
+		blueThresholdLow = 0;
+		blueThresholdHigh = 110;
     case 3
-        redthreshold = 150;
-        greenThreshold = 255;
-        blueThreshold = 110;
+        redThresholdLow = 80;
+		redThresholdHigh = 255;
+		greenThresholdLow = 0;
+		greenThresholdHigh = 200;
+		blueThresholdLow = 0;
+		blueThresholdHigh = 90;
     case 4
-        redthreshold = 80;
-        greenThreshold = 200;
-        blueThreshold = 90;
-    case 5
-        redthreshold = 100;
-        greenThreshold = 255;
-        blueThreshold = 100;
+        redThresholdLow = 100;
+		redThresholdHigh = 255;
+		greenThresholdLow = 0;
+		greenThresholdHigh = 255;
+		blueThresholdLow = 0;
+		blueThresholdHigh = 100;
 end
 % Read the image.
 rgbImage = imread(img);
-redBand = rgbImage(:,:, 1);
-greenBand = rgbImage(:,:, 2);
-blueBand = rgbImage(:,:, 3);
-% Threshold each color band.
-redMask = (redBand > redthreshold);
-greenMask = (greenBand < greenThreshold);
-blueMask = (blueBand < blueThreshold);
-% Combine the masks to find where all 3 are "true."
-redObjectsMask = uint8(redMask & greenMask & blueMask);
-maskedrgbImage = uint8(zeros(size(redObjectsMask))); % Initialize
-maskedrgbImage(:,:,1) = rgbImage(:,:,1) .* redObjectsMask;
-maskedrgbImage(:,:,2) = rgbImage(:,:,2) .* redObjectsMask;
-maskedrgbImage(:,:,3) = rgbImage(:,:,3) .* redObjectsMask;
-
-numOfPixels = 0;
-[row,col] = size(redObjectsMask);
-for i = 1:row
-    for j = 1:col
-        if redObjectsMask(i,j) == 1
-            numOfPixels = numOfPixels + 1;
-        end
-    end
+[~ , ~, numberOfColorBands] = size(rgbImage); 
+if strcmpi(class(rgbImage), 'uint8')
+	% Flag for 256 gray levels.
+	eightBit = true;
+else
+	eightBit = false;
 end
-Pixel = numOfPixels;
-% Fruit = maskedrgbImage;
+if numberOfColorBands == 1
+		if isempty(storedColorMap)
+			% Just a simple gray level image, not indexed with a stored color map.
+			% Create a 3D true color image where we copy the monochrome image into all 3 (R, G, & B) color planes.
+			rgbImage = cat(3, rgbImage, rgbImage, rgbImage);
+		else
+			% It's an indexed image.
+			rgbImage = ind2rgb(rgbImage, storedColorMap);
+			% ind2rgb() will convert it to double and normalize it to the range 0-1.
+			% Convert back to uint8 in the range 0-255, if needed.
+			if eightBit
+				rgbImage = uint8(255 * rgbImage);
+			end
+		end
+end 
+redBand = rgbImage(:, :, 1); 
+greenBand = rgbImage(:, :, 2); 
+blueBand = rgbImage(:, :, 3); 
+redMask = (redBand >= redThresholdLow) & (redBand <= redThresholdHigh);
+greenMask = (greenBand >= greenThresholdLow) & (greenBand <= greenThresholdHigh);
+blueMask = (blueBand >= blueThresholdLow) & (blueBand <= blueThresholdHigh);
+WhiteObjectMask = uint8(redMask & greenMask & blueMask);
+ObjectMask = uint8(redMask & greenMask & blueMask);
+smallestAcceptableArea = 100;
+ObjectMask = uint8(bwareaopen(ObjectMask, smallestAcceptableArea));
+structuringElement = strel('disk', 4);
+ObjectMask = imclose(ObjectMask, structuringElement);
+ObjectMask = uint8(imfill(ObjectMask, 'holes'));
+ObjectMask = cast(ObjectMask, class(redBand));
+maskedImageR = ObjectMask .* redBand;
+maskedImageG = ObjectMask .* greenBand;
+maskedImageB = ObjectMask .* blueBand;
+maskedRGBImage = cat(3, maskedImageR, maskedImageG, maskedImageB);
+Pixel = sum(WhiteObjectMask(:)==1);
 Fruit = img;
-FruitFail = maskedrgbImage;
+FruitFail = maskedRGBImage;
 end
