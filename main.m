@@ -41,6 +41,7 @@ if nargout
 else
     gui_mainfcn(gui_State, varargin{:});
 end
+
 % End initialization code - DO NOT EDIT
 end
 
@@ -51,7 +52,6 @@ function main_OpeningFcn(hObject, eventdata, handles, varargin)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to main (see VARARGIN)
-
 % Choose default command line output for main
 handles.output = hObject;
 
@@ -63,6 +63,7 @@ matlabImage = imread('Photos\FruitQA.jpg');
 imshow(matlabImage);
 image(matlabImage)
 axis off
+
 
 % UIWAIT makes main wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -78,6 +79,7 @@ function varargout = main_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
+
 end
 
 % --- Executes on button press in pushbutton2.
@@ -85,6 +87,7 @@ function pushbutton2_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
 axes(handles.axes3);
 set(handles.text3, 'Visible','off');
 set(handles.text4, 'Visible','off');

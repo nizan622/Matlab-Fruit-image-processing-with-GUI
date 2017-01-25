@@ -1,6 +1,7 @@
 function [sum, percent] = CalcFruit(imgPixel, MaskPixel, ImageNum)
     if ((imgPixel==0)||(MaskPixel==0)||(MaskPixel>imgPixel))
         sum = false;
+        percent = 0;
     else
         percent = (MaskPixel * 100)/imgPixel;
         switch ImageNum
