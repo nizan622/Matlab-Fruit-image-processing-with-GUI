@@ -245,7 +245,7 @@ function togglebutton1_Callback(hObject, eventdata, handles)
         ImagePixel = SizeInPixels(img);
         [flag,percent] = CalcFruit(ImagePixel, MaskPixel, ImageNum);
         CheckDiam = Diameter(img);
-        if (CheckDiam >= 0.5)
+        if (CheckDiam >= 1.5)
             DiamFlag = true;
         else 
             DiamFlag = false;
@@ -417,7 +417,7 @@ function togglebutton3_Callback(hObject, eventdata, handles)
         ImagePixel = SizeInPixels(img);
         [flag,percent] = CalcFruit(ImagePixel, MaskPixel, ImageNum);
         CheckDiam = Diameter(img);
-        if (CheckDiam >= 0.5)
+        if (CheckDiam >= 1.3)
             DiamFlag = true;
         else 
             DiamFlag = false;
@@ -504,7 +504,7 @@ function togglebutton4_Callback(hObject, eventdata, handles)
         ImagePixel = SizeInPixels(img);
         [flag,percent] = CalcFruit(ImagePixel, MaskPixel, ImageNum);
         CheckDiam = Diameter(img);
-        if (CheckDiam >= 0.5)
+        if (CheckDiam >= 1.3)
             DiamFlag = true;
         else 
             DiamFlag = false;
